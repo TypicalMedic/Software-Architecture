@@ -2,18 +2,18 @@
 ## Диаграммы компонентов
 Были развернуты контейнеры:
 #### Сервис управления проектной деятельностью студентов
-![Сервис управления проектной деятельностью студентов](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork3/Lab%20Work%20%E2%84%963/Docs/c4%20is.png?raw=true)
+![Сервис управления проектной деятельностью студентов](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%963/Docs/c4%20is.png?raw=true)
 #### Сервис чат-бота Telegram
-![Сервис чат-бота Telegram](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork3/Lab%20Work%20%E2%84%963/Docs/c4%20tg.png?raw=true)
+![Сервис чат-бота Telegram](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%963/Docs/c4%20tg.png?raw=true)
 #### Сервис интеграций
-![Сервис интеграций](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork3/Lab%20Work%20%E2%84%963/Docs/c4%20intgr.png?raw=true)
+![Сервис интеграций](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%963/Docs/c4%20intgr.png?raw=true)
 
 ## Диаграмма последовательностей
-![Диаграмма последовательностей](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork3/Lab%20Work%20%E2%84%963/Docs/seq.png?raw=true)
+![Диаграмма последовательностей](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%963/Docs/seq.png?raw=true)
 
 ## Модель БД в виде диаграммы классов
-![БД](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork3/Lab%20Work%20%E2%84%963/Docs/db.png?raw=true)
-## Исопльзование принципов KISS, YAGNI, DRY и SOLID в коде
+![БД](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%963/Docs/db.png?raw=true)
+## Использование принципов KISS, YAGNI, DRY и SOLID в коде
 Для реализации системы используется в основном язык Go.
 ### KISS
 Код легко читается и не использует какие-то незаурядные методы
