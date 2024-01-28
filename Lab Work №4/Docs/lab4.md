@@ -841,7 +841,7 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/114.png)
@@ -854,7 +854,7 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/122) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/122.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/124.png)
@@ -866,7 +866,7 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/133.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/134.png)
@@ -878,7 +878,7 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/143.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/144.png)
@@ -890,7 +890,7 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/153.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/154.png)
@@ -905,8 +905,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/211.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/212) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/212.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/215.png)
@@ -920,8 +920,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/221.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/222) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/222.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/225.png)
@@ -937,8 +937,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/311.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/314.png)
  5. Код автотестов 
@@ -951,8 +951,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/321.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/324.png)
  5. Код автотестов 
@@ -966,8 +966,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/411.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/413) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/413.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/414.png)
  5. Код автотестов 
@@ -981,8 +981,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/511.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/514.png)
  5. Код автотестов 
@@ -996,8 +996,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/611.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/613) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/613.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/614.png)
  5. Код автотестов 
@@ -1011,8 +1011,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/711.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/713) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/713.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/714.png)
  5. Код автотестов 
@@ -1026,8 +1026,8 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/811.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/813) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/813.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/814.png)
  5. Код автотестов 
@@ -1041,11 +1041,11 @@
  1. Строка запроса
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/911.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112) 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/112.png) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/113.png) 
  4. Ответ 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/914.png)
  5. Код автотестов 
  ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/915.png)
  6. Результат тестов 
- ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/916)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork4/Lab%20Work%20%E2%84%964/Docs/img/916.png)
