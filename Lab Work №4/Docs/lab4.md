@@ -417,8 +417,415 @@
   <summary> Код</summary>
     
 
-    {
-	    ------
+    func (h *Handler) Meetings(w http.ResponseWriter, r *http.Request) {
+	authHeader := r.Header.Get("authorization_token")
+	err := h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	result := struct {
+		Meetings []Meeting `json:"meetings"`
+	}{
+		h.App.Data.GetProfessorMeetings(rb.ProfessorId),
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(result)
+	}
+	
+	func (h *Handler) MeetingsStudent(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	stud, err := strconv.Atoi(vars["student_id"])
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	authHeader := r.Header.Get("authorization_token")
+	err = h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	result := struct {
+		Meetings []Meeting `json:"meetings"`
+	}{
+		h.App.Data.GetProfessorMeetingsStudent(rb.ProfessorId, stud),
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(result)
+	}
+
+	func (h *Handler) MeetingById(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	meeting, err := strconv.Atoi(vars["meeting_id"])
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	authHeader := r.Header.Get("authorization_token")
+	err = h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	result, err := h.App.Data.MeetingById(meeting)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(result)
+	}
+
+	func (h *Handler) MeetingAdd(w http.ResponseWriter, r *http.Request) {
+	authHeader := r.Header.Get("authorization_token")
+	err := h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	m := Meeting{
+		Name:        rb.Name,
+		Description: rb.Description,
+		Time:        rb.Time,
+		IsOnline:    rb.IsOnline,
+	}
+	h.App.Data.MeetingAdd(m, rb.ProfessorId, rb.StudentId)
+
+	h.App.Calendar.AddMeeting(m)
+	w.WriteHeader(http.StatusOK)
+	}
+
+	func (h *Handler) MeetingDelete(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	meeting, err := strconv.Atoi(vars["meeting_id"])
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	authHeader := r.Header.Get("authorization_token")
+	err = h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	err = h.App.Data.MeetingDelete(meeting)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	h.App.Calendar.DeleteMeeting(meeting)
+	w.WriteHeader(http.StatusOK)
+	}
+
+	func (h *Handler) MeetingReschedule(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	meeting, err := strconv.Atoi(vars["meeting_id"])
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	authHeader := r.Header.Get("authorization_token")
+	err = h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	err = h.App.Data.MeetingReschedule(meeting, rb.NewTime)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	h.App.Calendar.RescheduleMeeting(meeting, rb.NewTime)
+	w.WriteHeader(http.StatusOK)
+	}
+
+	func (h *Handler) MeetingUpdate(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	meeting, err := strconv.Atoi(vars["meeting_id"])
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	authHeader := r.Header.Get("authorization_token")
+	err = h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	m := Meeting{
+		Id:          meeting,
+		Name:        rb.Name,
+		Description: rb.Description,
+		Time:        rb.Time,
+		IsOnline:    rb.IsOnline,
+	}
+	err = h.App.Data.MeetingUpdate(m, rb.StudentId)
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	h.App.Calendar.UpdateMeeting(m, rb.StudentId)
+	w.WriteHeader(http.StatusOK)
+	}
+
+	func (h *Handler) CalendarDisconnect(w http.ResponseWriter, r *http.Request) {
+	authHeader := r.Header.Get("authorization_token")
+	err := h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	h.App.Calendar.DisonnectService(rb.ProfessorId)
+	w.WriteHeader(http.StatusOK)
+	}
+
+	func (h *Handler) CalendarConnect(w http.ResponseWriter, r *http.Request) {
+	authHeader := r.Header.Get("authorization_token")
+	err := h.App.Auth.CheckAuth(authHeader)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var rb RequestBody
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&rb)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	err = h.App.Data.FindUser(rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+
+	}
+
+	err = h.App.Auth.CheckUserIdentity(authHeader, rb.ProfessorId)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	h.App.Calendar.ConnectToService(rb.Email, rb.ProfessorId)
+	w.WriteHeader(http.StatusOK)
+	}
+	
+	func main() {
+	r := mux.NewRouter()
+	handler := Handler{
+		App: &App{
+			Data:     &Data{},
+			Calendar: &Calendar{},
+			Auth:     &Authentification{},
+		}}
+	r.HandleFunc("/meetings", handler.Meetings).Methods("GET")
+	r.HandleFunc("/meetings/filter", handler.MeetingsStudent).Methods("GET").Queries("student", "{student_id}")
+	r.HandleFunc("/meeting/{meeting_id}", handler.MeetingById).Methods("GET")
+	r.HandleFunc("/meeting/add", handler.MeetingAdd).Methods("POST")
+	r.HandleFunc("/meeting/{meeting_id}/delete", handler.MeetingDelete).Methods("DELETE")
+	r.HandleFunc("/meeting/{meeting_id}/reschedule", handler.MeetingReschedule).Methods("PUT")
+	r.HandleFunc("/meeting/{meeting_id}/update", handler.MeetingUpdate).Methods("PUT")
+	r.HandleFunc("/integrations/calendar/disconnect", handler.CalendarDisconnect).Methods("DELETE")
+	r.HandleFunc("/integrations/calendar/connect", handler.CalendarConnect).Methods("POST")
+
+	c := cors.New(cors.Options{
+		AllowedOrigins:      []string{"*"},
+		AllowCredentials:    true,
+		AllowedMethods:      []string{"POST", "GET", "PUT", "OPTIONS", "DELETE"},
+		AllowedHeaders:      []string{"*"},
+		AllowPrivateNetwork: true,
+	})
+
+	handler1 := c.Handler(r)
+	log.Fatal(http.ListenAndServe("0.0.0.0:5000", handler1))
 	}
  
 </details> 
@@ -433,213 +840,213 @@
 ### Корректный запрос
 
  1. Строка запроса
- ![enter image description here](111)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](113)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
- ![enter image description here](114)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/114.png)
  5. Код автотестов 
- ![enter image description here](115)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/115.png)
  6. Результат тестов 
- ![enter image description here](116)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/116.png)
 
 ### Нет авторизации
  1. Строка запроса
- ![enter image description here](111)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](122) 
- ![enter image description here](113)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/122) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
- ![enter image description here](124)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/124.png)
  5. Код автотестов 
- ![enter image description here](125)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/125.png)
  6. Результат тестов 
- ![enter image description here](126)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/126.png)
 ### Пользователя не существует
  1. Строка запроса
- ![enter image description here](111)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](133)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/133.png)
  4. Ответ 
- ![enter image description here](134)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/134.png)
  5. Код автотестов 
- ![enter image description here](135)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/135.png)
  6. Результат тестов 
- ![enter image description here](136)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/136.png)
 ### Некорректное тело запроса
  1. Строка запроса
- ![enter image description here](111)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](143)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/143.png)
  4. Ответ 
- ![enter image description here](144)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/144.png)
  5. Код автотестов 
- ![enter image description here](145)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/145.png)
  6. Результат тестов 
- ![enter image description here](146)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/146.png)
 ### Получаются данные не авторизированного пользователя
  1. Строка запроса
- ![enter image description here](111)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/111.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](153)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/153.png)
  4. Ответ 
- ![enter image description here](154)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/154.png)
  5. Код автотестов 
- ![enter image description here](155)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/155.png)
  6. Результат тестов 
- ![enter image description here](156)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/156.png)
 
 ## Посмотреть встречи с определенным студентом (GET)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](211)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/211.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](212) 
- ![enter image description here](112) 
- ![enter image description here](113)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/212) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
- ![enter image description here](215)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/215.png)
  5. Код автотестов 
- ![enter image description here](216)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/216.png)
  6. Результат тестов 
- ![enter image description here](217)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/217.png)
  
 ### Некорректные параметры запроса
 
  1. Строка запроса
- ![enter image description here](221)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/221.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](222) 
- ![enter image description here](112) 
- ![enter image description here](113)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/222) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113.png)
  4. Ответ 
- ![enter image description here](225)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/225.png)
  5. Код автотестов 
- ![enter image description here](226)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/226.png)
  6. Результат тестов 
- ![enter image description here](227)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/227.png)
  
 ## Посмотреть встречу (GET)
 
 ### Корректный запрос
 
  1. Строка запроса
- ![enter image description here](311)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/311.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113) 
  4. Ответ 
- ![enter image description here](314)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/314.png)
  5. Код автотестов 
- ![enter image description here](315)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/315.png)
  6. Результат тестов 
- ![enter image description here](316)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/316.png)
  
 ### Встречи не существует
 
  1. Строка запроса
- ![enter image description here](321)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/321.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113) 
  4. Ответ 
- ![enter image description here](324)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/324.png)
  5. Код автотестов 
- ![enter image description here](325)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/325.png)
  6. Результат тестов 
- ![enter image description here](326)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/326.png)
 
 ## Назначить встречу (POST)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](411)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/411.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](413) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/413) 
  4. Ответ 
- ![enter image description here](414)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/414.png)
  5. Код автотестов 
- ![enter image description here](415)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/415.png)
  6. Результат тестов 
- ![enter image description here](416)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/416.png)
 
 ## Отменить встречу (DELETE)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](511)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/511.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113) 
  4. Ответ 
- ![enter image description here](514)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/514.png)
  5. Код автотестов 
- ![enter image description here](515)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/515.png)
  6. Результат тестов 
- ![enter image description here](516)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/516.png)
 
 ## Перенести встречу (PUT)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](611)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/611.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](613) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/613) 
  4. Ответ 
- ![enter image description here](614)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/614.png)
  5. Код автотестов 
- ![enter image description here](615)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/615.png)
  6. Результат тестов 
- ![enter image description here](616)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/616.png)
 
 ## Обновить информацию о встрече (PUT)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](711)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/711.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](713) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/713) 
  4. Ответ 
- ![enter image description here](714)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/714.png)
  5. Код автотестов 
- ![enter image description here](715)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/715.png)
  6. Результат тестов 
- ![enter image description here](716)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/716.png)
 
 ## Подключить облачное хранилище (POST)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](811)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/811.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](813) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/813) 
  4. Ответ 
- ![enter image description here](814)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/814.png)
  5. Код автотестов 
- ![enter image description here](815)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/815.png)
  6. Результат тестов 
- ![enter image description here](816)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/816.png)
 
 ## Отключить облачное хранилище (DELETE)
 
 ### Корректный запрос
  1. Строка запроса
- ![enter image description here](911)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/911.png)
  3. Заголовки и параметры запроса 
- ![enter image description here](112) 
- ![enter image description here](113) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/112) 
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/113) 
  4. Ответ 
- ![enter image description here](914)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/914.png)
  5. Код автотестов 
- ![enter image description here](915)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/915.png)
  6. Результат тестов 
- ![enter image description here](916)
+ ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/main/Lab%20Work%20%E2%84%964/Docs/img/916)
