@@ -110,7 +110,7 @@
  - Content-Type: application/json
  
 <details>
-  <summary> Тело ответа (список всех предстоящих встреч с информацией о них)</summary>
+  <summary> Тело ответа (список предстоящих встреч со студентом с информацией о них)</summary>
     
 
     {
@@ -187,7 +187,7 @@
  - Content-Type: application/json
  
 <details>
-  <summary> Тело ответа (список всех предстоящих встреч с информацией о них)</summary>
+  <summary> Тело ответа (информациея о встрече)</summary>
     
 
     {
