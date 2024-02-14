@@ -1,0 +1,13 @@
+# Server configurations
+server:
+  host: "0.0.0.0"
+  port: 8080
+  outer_host: "localhost"
+
+# Database credentials
+database:
+  user: "root"
+  password: "root"
+  dbName: "userdb"
+  host: "173.18.0.25"
+  port: 3306

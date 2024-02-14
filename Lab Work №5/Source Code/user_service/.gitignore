@@ -1,0 +1,8 @@
+segments-app.exe
+.vscode
+web-app
+__debug_bin.exe
+*.csv
+webhook-sender.exe
+webhook-sender
+log.txt

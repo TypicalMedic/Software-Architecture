@@ -1,0 +1,35 @@
+version: '2.1'
+
+name: meeting-container
+services:
+  meeting-mysql:
+    image: ggghfffg/paps:mysql-meeting
+    container_name: mysql-container-meeting
+    volumes:
+      - papsDB2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meeting
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminapp
+    networks:
+      net:
+        ipv4_address: 173.18.0.24
+  meeting-service-container:
+    image: ggghfffg/paps:run-meeting
+    build: .
+    restart: on-failure # рестарт сервера при ошибке (в частности при первом пдключении к бд контейнер бд не успевает открыть порты, поэтому требуется дождаться этого)
+    depends_on: # зависит от контейнера бд
+      - meeting-mysql
+    links: 
+      - meeting-mysql
+    networks:
+      net:
+        ipv4_address: 173.18.0.23
+volumes:
+  papsDB2:    
+    external: true
+networks:
+  net:
+    name: paps
+    external: true

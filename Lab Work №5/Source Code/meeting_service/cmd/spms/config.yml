@@ -1,0 +1,13 @@
+# Server configurations
+server:
+  host: "0.0.0.0"
+  port: 8081
+  outer_host: "localhost"
+
+# Database credentials
+database:
+  user: "root"
+  password: "root"
+  dbName: "meeting"
+  host: "173.18.0.24"
+  port: 3306
