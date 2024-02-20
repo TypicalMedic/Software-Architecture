@@ -21,10 +21,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - name: check home
+        run: echo $HOME
       - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.20
+        run: |
+          mkdir /home/ec2-user/.cache
+          mkdir /home/ec2-user/.cache/go-build
+          mkdir /home/ec2-user/.cache/go-mod
+          mkdir /home/ec2-user/go
+          sudo yum install golang -y
+          GOPATH="/home/ec2-user/go"
+          GOCACHE="/home/ec2-user/.cache/go-build"
+          GOMODCACHE="/home/ec2-user/.cache/go-mod"
+          echo GOPATH=$GOPATH >> $GITHUB_ENV
+          echo GOCACHE=$GOCACHE >> $GITHUB_ENV
+          echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
       - name: Build
         run: |
           go build -v ./.../"Lab Work №5"/"Source Code"/user_service/cmd/spms
