@@ -49,6 +49,14 @@ jobs:
           cd "Lab Work №5"/"Source Code"/meeting_service
           go mod download
           go build -o ./cmd/spms/web-app ./cmd/spms/
+      - uses: actions/upload-artifact@master
+        with:
+          name: user-service
+          path: Lab Work №5/Source Code/user_service/cmd/spms/web-app          
+      - uses: actions/upload-artifact@master
+        with:
+          name: meeting-service
+          path: Lab Work №5/Source Code/meeting_service/cmd/spms/web-app
   # This workflow contains a single job called "build"
   build-docker-images:
     needs: build-sevices
@@ -59,6 +67,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - uses: actions/download-artifact@master
+        with:
+          name: user-service
+          path: Lab Work №5/Source Code/user_service/cmd/spms
+      - uses: actions/download-artifact@master
+        with:
+          name: meeting-service
+          path: Lab Work №5/Source Code/meeting_service/cmd/spms
       - name: check current dir
         run: ls
       - name: Login to docker.io
