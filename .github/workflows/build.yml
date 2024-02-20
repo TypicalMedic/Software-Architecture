@@ -35,9 +35,14 @@ jobs:
           echo GOCACHE=$GOCACHE >> $GITHUB_ENV
           echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
       - name: check dir
-        run: ls
+        run: |
+          ls
+          cd ..
+          ls
       - name: Verify dependencies
-        run: go mod verify
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod verify
       - name: Build
         run: |
           go build -v ./...
