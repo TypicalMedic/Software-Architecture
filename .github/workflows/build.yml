@@ -44,13 +44,11 @@ jobs:
           cd "Lab Work №5"/"Source Code"/user_service            
           go mod download
           go build -o ./cmd/spms/web-app ./cmd/spms/
-          chmod +x ./cmd/spms/web-app
       - name: Build meeting service
         run: |
           cd "Lab Work №5"/"Source Code"/meeting_service
           go mod download
           go build -o ./cmd/spms/web-app ./cmd/spms/
-          chmod +x ./cmd/spms/web-app
       - uses: actions/upload-artifact@master
         with:
           name: user-service
@@ -77,6 +75,10 @@ jobs:
         with:
           name: meeting-service
           path: Lab Work №5/Source Code/meeting_service/cmd/spms
+      - name: give executing rights to the services
+        run: |
+          chmod +x ./"Lab Work №5"/"Source Code"/user_service/cmd/spms/web-app          
+          chmod +x ./"Lab Work №5"/"Source Code"/meeting_service/cmd/spms/web-app
       - name: check current dir
         run: ls
       - name: Login to docker.io
