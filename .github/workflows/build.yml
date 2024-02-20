@@ -29,19 +29,19 @@ jobs:
         run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
       - name: Build image for user service
         run: |
-          cd /"Lab Work №5"/"Source Code"/user_service/build/package
+          cd "Lab Work №5"/"Source Code"/user_service/build/package
           docker build --pull --rm -f run.Dockerfile -t $LOGIN/$NAME:run -f Dockerfile .
       - name: Build image for user database
         run: |
-          cd /"Lab Work №5"/"Source Code"/user_service/build/package
+          cd "Lab Work №5"/"Source Code"/user_service/build/package
           docker build --pull --rm -f mysql.Dockerfile -t $LOGIN/$NAME:mysql -f Dockerfile .
       - name: Build image for meeting service
         run: |
-          cd /"Lab Work №5"/"Source Code"/meeting_service/build/package
+          cd "Lab Work №5"/"Source Code"/meeting_service/build/package
           docker build --pull --rm -f run.Dockerfile -t $LOGIN/$NAME:run-meeting -f Dockerfile .
       - name: Build image for meeting database
         run: |
-          cd /"Lab Work №5"/"Source Code"/meeting_service/build/package
+          cd "Lab Work №5"/"Source Code"/meeting_service/build/package
           docker build --pull --rm -f mysql.Dockerfile -t $LOGIN/$NAME:mysql-meeting -f Dockerfile .
       - name: Push all builded images to docker.io
         run: |
