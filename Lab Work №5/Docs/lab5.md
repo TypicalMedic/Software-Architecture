@@ -80,7 +80,7 @@
 
 После полной настройки окружения (миграции структуры бд, создания внешних томов) все сервисы стабильно работают:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/12.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/12.png)
 
 ## Проверка взаимодействия сервисов
 
@@ -88,13 +88,13 @@
 
 В качестве проверки используется метод /meetings:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/13.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/13.png)
 
 В логах контейнеров же отобразится информация вызовов базы данных и метода API:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/14.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/14.png)
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/15.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/15.png)
 
 ## Настройка непрерывной интеграции
 
@@ -208,26 +208,26 @@
 
 Для того, чтобы войти в аккаунт Docker и загрузить образы требуются логин, пароль и название репозитория. Для этого созданы переменные в GitHub secrets для сокрытия данных:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/16.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/16.png)
 
 Теперь для проверки работы пайплайна внесем изменения в lab5.md:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/4.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/4.png)
 
 Состояние образов на DockerHub:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/3.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/3.png)
 
 При пуше запускается пайплайн с двумя джобами:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/6.png)
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/7.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/6.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/7.png)
 
 После выполнения всех шагов пайплайн успешно завершается.
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/10.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/10.png)
 
 Образы на DockerHub обновились, теперь их можно собрать локально при помощи docker-compose.yml:
 
-![enter image description here](https://github.com/TypicalMedic/Software-Architecture/tree/LabWork5/Lab%20Work%20№5/Docs/img/11.png)
+![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/11.png)
 
