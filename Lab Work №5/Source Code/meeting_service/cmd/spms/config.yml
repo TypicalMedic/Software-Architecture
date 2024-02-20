@@ -9,5 +9,5 @@ database:
   user: "root"
   password: "root"
   dbName: "meeting"
-  host: "173.18.0.24"
+  host: "meeting-mysql"
   port: 3306

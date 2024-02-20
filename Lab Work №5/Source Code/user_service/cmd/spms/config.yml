@@ -9,5 +9,5 @@ database:
   user: "root"
   password: "root"
   dbName: "userdb"
-  host: "173.18.0.25"
+  host: "user-mysql"
   port: 3306

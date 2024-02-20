@@ -47,7 +47,7 @@ func (h *Handler) GetProfsStudentMeetings(w http.ResponseWriter, r *http.Request
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	req, err := http.NewRequest("GET", "http://173.18.0.23:8081/meetings/filter", nil)
+	req, err := http.NewRequest("GET", "http://meeting-service-container:8081/meetings/filter", nil)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusBadRequest)
@@ -128,7 +128,7 @@ func (h *Handler) GetProfMeetings(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	req, err := http.NewRequest("GET", "http://173.18.0.23:8081/meetings", nil)
+	req, err := http.NewRequest("GET", "http://meeting-service-container:8081/meetings", nil)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusBadRequest)
@@ -199,7 +199,7 @@ func (h *Handler) AddMeeting(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := http.Post("http://173.18.0.23:8081/meeting/add", "application/json", r.Body)
+	resp, err := http.Post("http://meeting-service-container:8081/meeting/add", "application/json", r.Body)
 	if err != nil {
 		msg = "Failed call to meetings service: " + err.Error()
 		log.Print(msg)
@@ -236,7 +236,7 @@ func (h *Handler) GetMeeting(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req, err := http.NewRequest("GET", "http://173.18.0.23:8081/meeting/"+vars["meeting_id"], nil)
+	req, err := http.NewRequest("GET", "http://meeting-service-container:8081/meeting/"+vars["meeting_id"], nil)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusBadRequest)
