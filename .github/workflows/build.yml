@@ -34,6 +34,8 @@ jobs:
           echo GOPATH=$GOPATH >> $GITHUB_ENV
           echo GOCACHE=$GOCACHE >> $GITHUB_ENV
           echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
+      - name: check dir
+        run: ls
       - name: Verify dependencies
         run: go mod verify
       - name: Build
