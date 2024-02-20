@@ -92,7 +92,11 @@
 
 В логах контейнеров же отобразится информация вызовов базы данных и метода API:
 
+Сервис пользователей
+
 ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/14.png)
+
+Сервис встреч
 
 ![enter image description here](https://github.com/TypicalMedic/Software-Architecture/blob/LabWork5/Lab%20Work%20%E2%84%965/Docs/img/15.png)
 
