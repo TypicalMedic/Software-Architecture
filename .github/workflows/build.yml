@@ -36,6 +36,6 @@ jobs:
           echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
       - name: Build
         run: |
-          go build -v ./.../"Lab Work №5"/"Source Code"/user_service/cmd/spms
-          go build -v ./.../"Lab Work №5"/"Source Code"/meeting_service/cmd/spms
+          go build -v ./...
+          go build -v ./...
           
