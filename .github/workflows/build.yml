@@ -44,11 +44,13 @@ jobs:
           cd "Lab Work №5"/"Source Code"/user_service            
           go mod download
           go build -o ./cmd/spms/web-app ./cmd/spms/
+          chmod +x web-app
       - name: Build meeting service
         run: |
           cd "Lab Work №5"/"Source Code"/meeting_service
           go mod download
           go build -o ./cmd/spms/web-app ./cmd/spms/
+          chmod +x web-app
       - uses: actions/upload-artifact@master
         with:
           name: user-service
