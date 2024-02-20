@@ -9,7 +9,9 @@ on:
     branches: [ "*" ]
   pull_request:
     branches: [ "*" ]
-
+env:
+ LOGIN: ${{ secrets.DOCKER_LOGIN }}
+ NAME: ${{ secrets.DOCKER_NAME }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -21,33 +23,28 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Set up Go
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - uses: actions/checkout@master 
+      - name: Build image for user service
         run: |
-          mkdir /home/runner/.cache
-          mkdir /home/runner/.cache/go-build
-          mkdir /home/runner/.cache/go-mod
-          mkdir /home/runner/go
-          sudo apt install golang-go
-          GOPATH="/home/runner/go"
-          GOCACHE="/home/runner/.cache/go-build"
-          GOMODCACHE="/home/runner/.cache/go-mod"
-          echo GOPATH=$GOPATH >> $GITHUB_ENV
-          echo GOCACHE=$GOCACHE >> $GITHUB_ENV
-          echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
-      - name: check dir
+          cd /"Lab Work №5"/"Source Code"/user_service/build/package
+          docker build --pull --rm -f run.Dockerfile -t $LOGIN/$NAME:run -f Dockerfile .
+      - name: Build image for user database
         run: |
-          ls
-          cd ..
-          ls
-      - name: Verify dependencies
+          cd /"Lab Work №5"/"Source Code"/user_service/build/package
+          docker build --pull --rm -f mysql.Dockerfile -t $LOGIN/$NAME:mysql -f Dockerfile .
+      - name: Build image for meeting service
         run: |
-          cd "Lab Work №5"/"Source Code"/meeting_service
-          go mod verify
-          cd ../user_service
-          go mod verify
-      - name: Build
+          cd /"Lab Work №5"/"Source Code"/meeting_service/build/package
+          docker build --pull --rm -f run.Dockerfile -t $LOGIN/$NAME:run-meeting -f Dockerfile .
+      - name: Build image for meeting database
         run: |
-          cd "Lab Work №5"/"Source Code"/meeting_service
-          go build -v ./...
-          cd ../user_service          
-          go build -v ./...
+          cd /"Lab Work №5"/"Source Code"/meeting_service/build/package
+          docker build --pull --rm -f mysql.Dockerfile -t $LOGIN/$NAME:mysql-meeting -f Dockerfile .
+      - name: Push all builded images to docker.io
+        run: |
+          docker push $LOGIN/$NAME:run
+          docker push $LOGIN/$NAME:run-meeting
+          docker push $LOGIN/$NAME:mysql
+          docker push $LOGIN/$NAME:mysql-meeting
