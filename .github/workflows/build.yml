@@ -14,8 +14,44 @@ env:
  NAME: ${{ secrets.DOCKER_NAME }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build-sevices:  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        run: |
+          mkdir /home/runner/.cache
+          mkdir /home/runner/.cache/go-build
+          mkdir /home/runner/.cache/go-mod
+          mkdir /home/runner/go
+          sudo apt install golang-go
+          GOPATH="/home/runner/go"
+          GOCACHE="/home/runner/.cache/go-build"
+          GOMODCACHE="/home/runner/.cache/go-mod"
+          echo GOPATH=$GOPATH >> $GITHUB_ENV
+          echo GOCACHE=$GOCACHE >> $GITHUB_ENV
+          echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
+      - name: Verify dependencies
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod verify
+          cd ../user_service
+          go mod verify
+      - name: Build user service
+        run: |
+          cd "Lab Work №5"/"Source Code"/user_service            
+          go mod download
+          go build -o ./cmd/spms/web-app ./cmd/spms/
+      - name: Build meeting service
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod download
+          go build -o ./cmd/spms/web-app ./cmd/spms/
   # This workflow contains a single job called "build"
-  build:
+  build-docker-images:
+    needs: build-sevices
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
