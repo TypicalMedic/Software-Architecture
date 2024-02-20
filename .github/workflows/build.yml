@@ -26,7 +26,7 @@ jobs:
           mkdir /home/runner/.cache
           mkdir /home/runner/.cache/go-build
           mkdir /home/runner/.cache/go-mod
-          mkdir /home/runnerr/go
+          mkdir /home/runner/go
           sudo yum install golang -y
           GOPATH="/home/runner/go"
           GOCACHE="/home/runner/.cache/go-build"
