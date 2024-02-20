@@ -43,8 +43,11 @@ jobs:
         run: |
           cd "Lab Work №5"/"Source Code"/meeting_service
           go mod verify
+          cd ../user_service
+          go mod verify
       - name: Build
         run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
           go build -v ./...
+          cd ../user_service          
           go build -v ./...
-          
