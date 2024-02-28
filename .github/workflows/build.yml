@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "*" ]
-  pull_request:
-    branches: [ "*" ]
 env:
  LOGIN: ${{ secrets.DOCKER_LOGIN }}
  NAME: ${{ secrets.DOCKER_NAME }}
@@ -114,8 +112,9 @@ jobs:
         run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
       - name: run containers with compose
         run: |
+          docker compose version
           cd "Lab Work №5"/"Source Code"
-          docker-compose up -d
+          docker compose up -d
       - name: setup database
         run: | 
            docker exec -i mysql-container-meeting mysql -u root --password=root
