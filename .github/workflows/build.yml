@@ -123,6 +123,7 @@ jobs:
         shell: bash
       - name: setup database schema
         run: | 
+           docker exec -i mysql-container-meeting ls
            docker exec -i mysql-container-meeting mysql -u root --password=root
            source db_baseline.sql
            exit
