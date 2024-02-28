@@ -125,6 +125,7 @@ jobs:
         run: | 
            docker exec -i mysql-container-meeting ls
            docker exec -i mysql-container-meeting mysql -u root --password=root
+           show databases
            source db_baseline.sql
            exit
       
