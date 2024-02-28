@@ -105,3 +105,22 @@ jobs:
           docker push $LOGIN/$NAME:run-meeting
           docker push $LOGIN/$NAME:mysql
           docker push $LOGIN/$NAME:mysql-meeting
+  run-tests:
+    needs: build-docker-images
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - name: run containers with compose
+        run: |
+          cd "Lab Work №5"/"Source Code"
+          docker-compose up -d
+      - name: setup database
+        run: | 
+           docker exec -i mysql-container-meeting mysql -u root --password=root
+           source db_baseline.sql
+           exit
+      
+
+      
