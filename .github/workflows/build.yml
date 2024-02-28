@@ -117,17 +117,13 @@ jobs:
       - name: run containers with compose
         run: |
           cd "Lab Work №5"/"Source Code"
-          docker compose up -d
+          docker compose up -d 
       - name: Sleep (waiting for db to setup)
         run: sleep 60s
         shell: bash
       - name: setup database schema
         run: | 
-           docker exec -i mysql-container-meeting ls
-           docker exec -i mysql-container-meeting mysql -u root --password=root
-           show databases
-           source db_baseline.sql
-           exit
+           docker exec -i mysql-container-meeting mysql -u root --password=root <<< source db_baseline.sql <<< exit
       
 
       
