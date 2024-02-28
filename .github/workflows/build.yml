@@ -124,6 +124,11 @@ jobs:
       - name: setup database schema
         run: | 
            docker exec -i mysql-container-meeting mysql -u root --password=root -e "source db_baseline.sql"
+      - name: run tests for meeting service
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service/test
+          go test
+          
       
 
       
