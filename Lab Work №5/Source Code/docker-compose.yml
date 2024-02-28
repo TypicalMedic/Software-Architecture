@@ -39,7 +39,9 @@ services:
     depends_on: # зависит от контейнера бд
       - meeting-mysql
     links: 
-      - meeting-mysql
+      - meeting-mysql      
+    ports:
+      - 8081:8081
 volumes:
   papsDB:    
     external: true
