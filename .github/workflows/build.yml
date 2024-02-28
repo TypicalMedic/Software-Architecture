@@ -127,6 +127,7 @@ jobs:
       - name: run tests for meeting service
         run: |
           cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod tidy
           go mod download
           cd test
           go test
