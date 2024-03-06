@@ -1,0 +1,137 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "*" ]
+env:
+ LOGIN: ${{ secrets.DOCKER_LOGIN }}
+ NAME: ${{ secrets.DOCKER_NAME }}
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-sevices:  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        run: |
+          mkdir /home/runner/.cache
+          mkdir /home/runner/.cache/go-build
+          mkdir /home/runner/.cache/go-mod
+          mkdir /home/runner/go
+          sudo apt install golang-go
+          GOPATH="/home/runner/go"
+          GOCACHE="/home/runner/.cache/go-build"
+          GOMODCACHE="/home/runner/.cache/go-mod"
+          echo GOPATH=$GOPATH >> $GITHUB_ENV
+          echo GOCACHE=$GOCACHE >> $GITHUB_ENV
+          echo GOMODCACHE=$GOMODCACHE >> $GITHUB_ENV
+      - name: Verify dependencies
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod verify
+          cd ../user_service
+          go mod verify
+      - name: Build user service
+        run: |
+          cd "Lab Work №5"/"Source Code"/user_service            
+          go mod download
+          go build -o ./cmd/spms/web-app ./cmd/spms/
+      - name: Build meeting service
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod download
+          go build -o ./cmd/spms/web-app ./cmd/spms/
+      - uses: actions/upload-artifact@master
+        with:
+          name: user-service
+          path: Lab Work №5/Source Code/user_service/cmd/spms/web-app          
+      - uses: actions/upload-artifact@master
+        with:
+          name: meeting-service
+          path: Lab Work №5/Source Code/meeting_service/cmd/spms/web-app
+  # This workflow contains a single job called "build"
+  build-docker-images:
+    needs: build-sevices
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@master
+        with:
+          name: user-service
+          path: Lab Work №5/Source Code/user_service/cmd/spms
+      - uses: actions/download-artifact@master
+        with:
+          name: meeting-service
+          path: Lab Work №5/Source Code/meeting_service/cmd/spms
+      - name: give executing rights to the services
+        run: |
+          chmod +x ./"Lab Work №5"/"Source Code"/user_service/cmd/spms/web-app          
+          chmod +x ./"Lab Work №5"/"Source Code"/meeting_service/cmd/spms/web-app
+      - name: check current dir
+        run: ls
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - name: Build image for user service
+        run: |
+          cd "Lab Work №5"/"Source Code"/user_service
+          docker build --pull --rm -f build/package/run.Dockerfile -t $LOGIN/$NAME:run .
+      - name: Build image for user database
+        run: |
+          cd "Lab Work №5"/"Source Code"/user_service
+          docker build --pull --rm -f build/package/mysql.Dockerfile -t $LOGIN/$NAME:mysql .
+      - name: Build image for meeting service
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          docker build --pull --rm -f build/package/run.Dockerfile -t $LOGIN/$NAME:run-meeting .
+      - name: Build image for meeting database
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          docker build --pull --rm -f build/package/mysql.Dockerfile -t $LOGIN/$NAME:mysql-meeting .
+      - name: Push all builded images to docker.io
+        run: |
+          docker push $LOGIN/$NAME:run
+          docker push $LOGIN/$NAME:run-meeting
+          docker push $LOGIN/$NAME:mysql
+          docker push $LOGIN/$NAME:mysql-meeting
+  run-tests:
+    needs: build-docker-images
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - name: add external volume for db
+        run: |
+          docker volume create papsDB
+          docker volume create papsDB2
+      - name: run containers with compose
+        run: |
+          cd "Lab Work №5"/"Source Code"
+          docker compose up -d 
+      - name: Sleep (waiting for db to setup)
+        run: sleep 60s
+        shell: bash
+      - name: setup database schema
+        run: | 
+           docker exec -i mysql-container-meeting mysql -u root --password=root -e "source db_baseline.sql"
+      - name: run tests for meeting service
+        run: |
+          cd "Lab Work №5"/"Source Code"/meeting_service
+          go mod tidy
+          go mod download
+          cd test
+          go test
+          
+      
+
+      
