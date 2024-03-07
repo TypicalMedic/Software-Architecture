@@ -14,7 +14,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/1.png)
+<img src="./img/1.png" alt="drawing" width="600"/>
 
 #### Реализация
 
@@ -69,7 +69,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/2.png)
+<img src="./img/2.png" alt="drawing" width="600"/>
 
 #### Реализация
 
@@ -190,7 +190,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/3.png)
+<img src="./img/3.png" alt="drawing" width="300"/>
 
 #### Реализация
 
@@ -222,7 +222,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/4.png)
+<img src="./img/4.png" alt="drawing" width="350"/>
 
 #### Реализация
 
@@ -264,7 +264,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/5.png)
+<img src="./img/5.png" alt="drawing" width="500"/>
 
 #### Реализация
 Данная реализация уже существует в реализации проекта на Go, поэтому в этой секции будет использован он.
@@ -397,7 +397,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/6.png)
+<img src="./img/6.png" alt="drawing" width="500"/>
 
 #### Реализация
 
@@ -457,7 +457,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/7.png)
+<img src="./img/7.png" alt="drawing" width="500"/>
 
 #### Реализация
 
@@ -504,7 +504,7 @@
 
 #### UML диаграмма
 
-![alt text](./img/8.png)
+<img src="./img/8.png" alt="drawing" width="500"/>
 
 #### Реализация
 
@@ -564,15 +564,155 @@
 
 > Представляет доступ ко всем элементам составного объекта, не раскрывая его внутреннего представления.
 
-В приложении данный шаблон можно использовать для итерирования таких сущностей как задания проекта.
+В приложении данный шаблон можно использовать для итерирования таких сущностей как задания проекта. 
 
 
+#### UML диаграмма
+
+<img src="./img/9.png" alt="drawing" width="600"/>
+
+#### Реализация
+
+Итерируемый класс 
+
+    class Tasks 
+    {
+        private ArrayList _items = new ArrayList();
+ 
+        public Iterator CreateIterator()
+        {
+            return new TaskIterator(this);
+        }
+ 
+        public int Count
+        {
+            get { return _items.Count; }
+        }
+ 
+        public object this[int index]
+        {
+            get { return _items[index]; }
+            set { _items.Insert(index, value); }
+        }
+
+        // подсчет выполненных заданий
+        public int CompletedCount {
+            get { return _items.CountCompleted;}
+        }
+    }
+
+Абстрактный итератор и его реализация.
+
+    abstract class Iterator
+    {
+        public abstract object First();
+        public abstract object Next();
+        public abstract bool IsDone();
+        public abstract object CurrentItem();
+    }
+ 
+    class TaskIterator : Iterator
+    {
+        private Tasks _tasks;
+        private int _current = 0;
+ 
+        public TaskIterator(Tasks tasks)
+        {
+            this._tasks = tasks;
+        }
+ 
+        public override object First()
+        {
+            return _tasks[0];
+        }
+ 
+        public override object Next()
+        {
+            object ret = null;
+            if (_current < _tasks.Count - 1)
+            {
+                ret = _tasks[++_current];
+            }
+ 
+            return ret;
+        }
+ 
+        public override object CurrentItem()
+        {
+            return _tasks[_current];
+        }
+ 
+        public override bool IsDone()
+        {
+            return _current >= _tasks.Count;
+        }
+    }
+
+Перебор заданий:
+
+    // ...
+
+    Tasks t = new Tasks();
+    t[0] = new Task("1");
+    t[1] = new Task("2");
+
+    TaskIterator i = t.CreateIterator();
+
+    object item = i.First();
+        while (item != null)
+        {
+            // работа с заданием
+            item = i.Next();
+        }
+    
+    // ...
 
 ### Интерпретатор
 
 > Для заданного языка определяет представление его грамматики, а также интерпретатор предложений этого языка.
 
 В сущностях приложения существуют перечеслимые типы для статусов, стадии проектов, встреч, заданий. Они передаются в качестве строк с названием ("Not started", "In progress"). Однако пользователям будет удобно видеть русифицированную версию, для этого используется интерпретатор.
+
+
+#### UML диаграмма
+
+<img src="./img/10.png" alt="drawing" width="300"/>
+
+#### Реализация
+
+    public abstract class  {
+        private Status status;
+
+        public AbstractStatus(Status status){
+            this.status = status;
+        }
+
+        public abstract void Interpret();
+    }
+
+    public class RussianStatus : AbstractStaus {
+        public string russianStatus;
+
+        public RussianStatus(Status status){
+            super(status);
+        }
+
+        public override void Interpret(){
+            switch(this.status){
+                case Status.NotStarted : {
+                    this.russianStatus = "не начат"
+                }
+                break;
+                case Status.InProgress : {
+                    this.russianStatus = "в процессе"
+                }
+                break;
+                default : {
+                    this.russianStatus = "неизвестен"
+                }
+            }
+        }
+    }
 
 ### Наблюдатель 
 
