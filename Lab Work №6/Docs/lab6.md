@@ -504,7 +504,7 @@
 
 #### UML диаграмма
 
-<img src="./img/8.png" alt="drawing" width="500"/>
+<img src="./img/8.png" alt="drawing" width="600"/>
 
 #### Реализация
 
@@ -720,11 +720,118 @@
 
 В приложении пристутствуют сущности, атрибуты которых зависят от других, например проект содержит информацию о преподавателе, курирующем его. При реализации со специфичным хранилищем данных, которое не обновляет данные автоматически, как база данных, требуется наблюдатель, который сообщает всем проектам, что информация о преподавателе обновилась.
 
+#### UML диаграмма
+
+<img src="./img/11.png" alt="drawing" width="500"/>
+
+#### Реализация
+
+Интерфейс вещателя новостей и его реализация у преподавателя:
+
+    interface Observable {
+        void registerObserver(Observer o);
+        void removeObserver(Observer o);
+        void notifyObservers();
+    }
+
+    public class Professor : Observable {
+        private List<Observer> projects;
+        private string name;
+
+        public Professor(string name) {
+            projects = new ArrayList<>();
+            this.name = name;
+        }
+
+        public void setName(string name) {
+            this.name = name;
+            notifyObservers();
+        }
+
+        public override void registerObserver(Observer o) {
+            projects.add(o);
+        }
+
+        public override void removeObserver(Observer o) {
+            projects.remove(o);
+        }
+
+        public override void notifyObservers() {
+            for (Observer o : projects)
+                o.update(newsChurch);
+        }
+    }
+
+Интерфейс наблюдателя и его реализация у проекта:
+
+    interface Observer {
+        void update (string news);
+    }
+
+    public class Project : Observer {
+        private string name;
+
+        public Project(string name, Observable o) {
+            this.name = name;
+            o.registerObserver(this);
+        }
+
+        public override void update(string news) {
+            System.out.println(name + " узнал новость: " + news);
+        }
+    }
+
+В коде:
+
+    // ...
+
+    Professor observable = new Professor("Настя");
+
+    observable.registerObserver(new {Project}("123"));
+
+    observable.setName("Анастасия");
+
+    // ... 
+
+
 ### Шаблон
 
 > Определяет общий алгоритм поведения подклассов, позволяя им переопределить отдельные шаги этого алгоритма без изменения его структуры.
 
 Приложение предоставляет возможность уведомления преподавателей о предстоящих встречах. И преподаватель может выбрать способ получения этих уведомлений (в мессенджере, по почте, смс и т. д.). Чтобы не реализовывать один и тот же алгоритм уведомления для каждого варианта создается класс-шаблон, который описыывает общий алгорим, а сам способ отправки реализуют сервисы.
 
+#### UML диаграмма
 
+<img src="./img/12.png" alt="drawing" width="300"/>
 
+#### Реализация
+
+Абстрактный класс уведомления преподавателя:
+
+    public abstract class NotifyProfessor {
+        public abstract void GetNotificationData();
+        public abstract void GetProfessorContacts();
+        public abstract void SendNotification();
+
+        public void Notify(){
+            GetNotificationData();
+            GetProfessorContacts();
+            SendNotification();
+        }
+    }
+
+Реализации класса для почты:
+
+    public class NotifyProfessorEmail : NotifyProfessor {
+        public void GetNotificationData(){
+            // получение содержания письма
+        }
+        
+        public void GetProfessorContacts(){
+            // получение информации о почте
+        }
+
+        public void SendNotification(){
+            // отправка по почте
+        }
+    }
